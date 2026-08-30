@@ -1,0 +1,17 @@
+# Credentials and environment overrides
+credentials.env
+.env
+.env.*
+!.env.example
+
+# Dependencies, output, and runtime state
+node_modules/
+coverage/
+.data/
+*.log
+
+# Local tooling and operating-system files
+.serena/
+.DS_Store
+.idea/
+.vscode/

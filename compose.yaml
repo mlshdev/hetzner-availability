@@ -1,0 +1,38 @@
+services:
+  monitor:
+    image: "ghcr.io/mlshdev/hetzner-availability:latest"
+    build:
+      context: "."
+      dockerfile: "Dockerfile"
+    env_file:
+      - "credentials.env"
+    environment:
+      ENVIRONMENT: "production"
+      HEALTH_STATE_FILE: "/tmp/monitor-health.json"
+      STATE_FILE: "/data/availability-state.json"
+    entrypoint: ["bun", "run", "src/index.ts"]
+    user: "1000:1000"
+    read_only: true
+    init: true
+    restart: "unless-stopped"
+    stop_grace_period: "10s"
+    cap_drop: ["ALL"]
+    cap_add: []
+    security_opt: ["no-new-privileges:true"]
+    tmpfs:
+      - "/tmp:rw,noexec,nosuid,nodev,size=16777216,uid=1000,gid=1000,mode=1777"
+    volumes:
+      - "monitor-data:/data:rw"
+    healthcheck:
+      test: ["CMD", "bun", "run", "src/healthcheck.ts"]
+      interval: "30s"
+      timeout: "5s"
+      start_period: "45s"
+      retries: 3
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+
+volumes:
+  monitor-data:

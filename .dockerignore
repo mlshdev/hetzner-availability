@@ -1,0 +1,14 @@
+.git
+.github
+.serena
+.vscode
+.idea
+credentials.env
+credentials.env.*
+!credentials.env.example
+node_modules
+coverage
+.data
+README.md
+*.log
+.DS_Store

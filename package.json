@@ -1,0 +1,32 @@
+{
+  "name": "hetzner-availability-monitor",
+  "version": "1.0.0",
+  "description": "Monitor Hetzner Cloud server availability and send AWS SES alerts",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlshdev/hetzner-availability.git"
+  },
+  "private": true,
+  "type": "module",
+  "packageManager": "bun@1.4.0",
+  "engines": {
+    "bun": "1.4.0"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "check": "bun run format:check && bun run typecheck && bun test",
+    "start": "bun run src/index.ts",
+    "test": "bun test",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sesv2": "3.1121.0"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.0",
+    "prettier": "3.9.6",
+    "typescript": "7.0.2"
+  }
+}
